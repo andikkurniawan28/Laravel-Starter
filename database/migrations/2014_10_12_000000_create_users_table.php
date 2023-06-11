@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->string('username')->unique();
             $table->string('password');
+            $table->boolean('is_activated')->default(0);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });

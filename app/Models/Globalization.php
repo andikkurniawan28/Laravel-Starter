@@ -17,13 +17,15 @@ class Globalization extends Model
     public static function index(){
         $data["role"] = Role::all();
         $data["menu"] = Menu::all();
-        $data["app_name"] = Setting::where('name', '=', 'app_name')->get()->last()->value;
-        $data["app_color"] = Setting::where('name', '=', 'app_color')->get()->last()->value;
-        $data["app_font_color"] = Setting::where('name', '=', 'app_font_color')->get()->last()->value;
-        $data["default_role_id"] = Role::max('id');
+        $data["app_name"] = Setting::where("name", "=", "app_name")->get()->last()->value;
+        $data["app_color"] = Setting::where("name", "=", "app_color")->get()->last()->value;
+        $data["app_font_color"] = Setting::where("name", "=", "app_font_color")->get()->last()->value;
+        $data["default_role_id"] = Role::max("id");
 
-        if (Route::current()->getName() != 'login' && Route::current()->getName() != 'register') {
+        if (Route::current()->getName() != "login" && Route::current()->getName() != "register") {
             $data["permission"] = Permission::where("role_id", Auth()->user()->role_id)->get();
+            $data["is_setting_allowed"] = Permission::where("role_id", Auth()->user()->role_id)
+                ->where("menu_id", 2)->count();
         }
 
         return $data;

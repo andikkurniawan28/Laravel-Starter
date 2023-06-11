@@ -20,16 +20,9 @@ class DatabaseSeeder extends Seeder
         ];
 
         $setting = [
-            ['name' => "app_name", 'value' => "Starter"],
+            ['name' => "app_name", 'value' => "Laravel-Starter"],
             ['name' => "app_color", 'value' => "primary"],
             ['name' => "app_font_color", 'value' => "dark"],
-        ];
-
-        $menu = [
-            ['name' => "Setting", "icon" => "cogs", 'route' => "setting"],
-            ['name' => "Role", "icon" => "key",'route' => "role.index"],
-            ['name' => "User", "icon" => "users", 'route' => "user.index"],
-            ['name' => "Permission", "icon" => "door-open", 'route' => "permission.index"],
         ];
 
         $permission = [
@@ -37,11 +30,14 @@ class DatabaseSeeder extends Seeder
             ['role_id' => "1", "menu_id" => 2],
             ['role_id' => "1", "menu_id" => 3],
             ['role_id' => "1", "menu_id" => 4],
+            ['role_id' => "1", "menu_id" => 5],
         ];
 
         $user = [
-            ['name' => ucfirst("admin"), "username" => "admin", "password" => bcrypt("admin"), "role_id" => 1],
+            ['name' => ucfirst("admin"), "username" => "admin", "password" => bcrypt("admin"), "role_id" => 1, "is_activated" => 1],
         ];
+
+        $menu = Menu::setSeeder();
 
         Role::insert($role);
         Setting::insert($setting);

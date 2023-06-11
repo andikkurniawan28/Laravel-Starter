@@ -25,6 +25,7 @@ class AuthController extends Controller
         $attempt = Auth::attempt([
             "username" => $request->username,
             "password" => $request->password,
+            "is_activated" => 1,
         ]);
         if($attempt){
             $request->session()->regenerate();

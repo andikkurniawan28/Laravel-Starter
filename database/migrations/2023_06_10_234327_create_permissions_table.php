@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('permissions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('role_id')->constrained();
-            $table->foreignId('menu_id')->constrained();
+            $table->foreignId('menu_id')->constrained()->onDelete('cascade');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });

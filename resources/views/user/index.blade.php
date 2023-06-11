@@ -24,6 +24,7 @@
                             <th>{{ strtoupper("id") }}</th>
                             <th>{{ ucfirst("role") }}</th>
                             <th>{{ ucfirst("name") }}</th>
+                            <th>{{ ucfirst("status") }}</th>
                             <th>{{ ucfirst("timestamp") }}</th>
                             <th>{{ ucfirst("action") }}</th>
                         </tr>
@@ -34,12 +35,23 @@
                             <td>{{ $user->id }}</td>
                             <td>{{ $user->role->name ?? "" }}</td>
                             <td>{{ $user->name }}</td>
+                            <td>
+                                @if($user->is_activated === 0)
+                                <span class="badge badge-pill badge-dark"><i class="fas fa-ban"></i> Inactive</span>
+                                @elseif($user->is_activated === 1)
+                                <span class="badge badge-pill badge-primary"><i class="fas fa-check"></i> Active</span>
+                                @endif
+                            </td>
                             <td>{{ $user->created_at }}</td>
                             <td>
                                 <form action="{{ route('user.destroy', $user->id) }}" method="POST" onsubmit="if(!confirm('Data will deleted, are you sure?')){return false;}">
                                     @csrf @method("DELETE")
                                     <a href="{{ route("user.edit", $user->id) }}" class="btn btn-outline-secondary btn-sm"><i class="fas fa-edit"></i> {{ ucfirst("edit") }}</a>
-                                    {{-- <a href="{{ route("user.show", $user->id) }}" class="btn btn-outline-info btn-sm"><i class="fas fa-info"></i> {{ ucfirst("info") }}</a> --}}
+                                    @if($user->is_activated === 0)
+                                    <a href="{{ route("user_activation", $user->id) }}" class="btn btn-outline-info btn-sm"><i class="fas fa-check"></i> {{ ucfirst("activate") }}</a>
+                                    @elseif($user->is_activated === 1)
+                                    <a href="{{ route("user_activation", $user->id) }}" class="btn btn-outline-dark btn-sm"><i class="fas fa-ban"></i> {{ ucfirst("ban") }}</a>
+                                    @endif
                                     <button class="btn btn-outline-danger btn-sm" type="submit"><i class="fas fa-trash"></i> {{ ucfirst("delete") }}</button>
                                 </form>
                             </td>
