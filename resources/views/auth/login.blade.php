@@ -49,7 +49,7 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">{{ $global["app_name"] }} Login</h1>
                                     </div>
-                                    <form class="user" method="POST" action="{{ route("login_process") }}">
+                                    <form class="user" method="POST" action="{{ route("login.process") }}">
                                         @csrf @method("POST")
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user"

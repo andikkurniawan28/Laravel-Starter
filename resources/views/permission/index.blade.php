@@ -33,7 +33,7 @@
                         <tr>
                             <td>{{ $permission->id }}</td>
                             <td>{{ $permission->role->name ?? "" }}</td>
-                            <td><a href="{{ route($permission->menu->route ?? "#") }}">{{ $permission->menu->name ?? "" }}</a></td>
+                            <td>{{ $permission->menu->name ?? "" }}</td>
                             <td>{{ $permission->created_at }}</td>
                             <td>
                                 <form action="{{ route('permission.destroy', $permission->id) }}" method="POST" onsubmit="if(!confirm('Data will deleted, are you sure?')){return false;}">

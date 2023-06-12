@@ -23,6 +23,7 @@
                         <tr>
                             <th>{{ strtoupper("id") }}</th>
                             <th>{{ ucfirst("name") }}</th>
+                            <th>{{ ucfirst("method") }}</th>
                             <th>{{ ucfirst("icon") }}</th>
                             <th>{{ ucfirst("route") }}</th>
                             <th>{{ ucfirst("timestamp") }}</th>
@@ -34,6 +35,7 @@
                         <tr>
                             <td>{{ $menu->id }}</td>
                             <td>{{ $menu->name }}</td>
+                            <td>{{ $menu->method }}</td>
                             <td><i class="fas fa-{{ $menu->icon }}"></i></td>
                             <td>{{ $menu->route }}</td>
                             <td>{{ $menu->created_at }}</td>

@@ -13,11 +13,13 @@ class Menu extends Model
 
     public static function setSeeder(){
         $data = [
-            ['name' => "Setting", "icon" => "cogs", 'route' => "setting"],
-            ['name' => "Menu", "icon" => "list", 'route' => "menu.index"],
-            ['name' => "Role", "icon" => "key",'route' => "role.index"],
-            ['name' => "User", "icon" => "users", 'route' => "user.index"],
-            ['name' => "Permission", "icon" => "door-open", 'route' => "permission.index"],
+            ["method" => "GET", "name" => "Setting Index", "icon" => "fas fa-cogs", "route" => "setting.index", "is_serialized" => 0],
+            ["method" => "POST", "name" => "Setting Process", "icon" => NULL, "route" => "setting.process", "is_serialized" => 0],
+            ["method" => "RESOURCE", "name" => ucfirst('menu'), "icon" => "fas fa-list", "route" => "menu", "is_serialized" => 1],
+            ["method" => "RESOURCE", "name" => ucfirst('role'), "icon" => "fas fa-key", "route" => "role", "is_serialized" => 1],
+            ["method" => "RESOURCE", "name" => ucfirst('permission'), "icon" => "fas fa-door-open", "route" => "permission", "is_serialized" => 1],
+            ["method" => "RESOURCE", "name" => ucfirst('user'), "icon" => "fas fa-users", "route" => "user", "is_serialized" => 1],
+            ["method" => "GET", "name" => "User Activation", "icon" => NULL, "route" => "user.activation", "is_serialized" => 0],
         ];
         return $data;
     }

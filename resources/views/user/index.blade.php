@@ -48,9 +48,9 @@
                                     @csrf @method("DELETE")
                                     <a href="{{ route("user.edit", $user->id) }}" class="btn btn-outline-secondary btn-sm"><i class="fas fa-edit"></i> {{ ucfirst("edit") }}</a>
                                     @if($user->is_activated === 0)
-                                    <a href="{{ route("user_activation", $user->id) }}" class="btn btn-outline-info btn-sm"><i class="fas fa-check"></i> {{ ucfirst("activate") }}</a>
+                                    <a href="{{ route("user.activation", $user->id) }}" class="btn btn-outline-info btn-sm"><i class="fas fa-check"></i> {{ ucfirst("activate") }}</a>
                                     @elseif($user->is_activated === 1)
-                                    <a href="{{ route("user_activation", $user->id) }}" class="btn btn-outline-dark btn-sm"><i class="fas fa-ban"></i> {{ ucfirst("ban") }}</a>
+                                    <a href="{{ route("user.activation", $user->id) }}" class="btn btn-outline-dark btn-sm"><i class="fas fa-ban"></i> {{ ucfirst("ban") }}</a>
                                     @endif
                                     <button class="btn btn-outline-danger btn-sm" type="submit"><i class="fas fa-trash"></i> {{ ucfirst("delete") }}</button>
                                 </form>

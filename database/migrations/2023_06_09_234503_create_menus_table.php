@@ -15,9 +15,11 @@ return new class extends Migration
     {
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
+            $table->string('method');
             $table->string('name')->unique();
-            $table->string('icon')->unique();
+            $table->string('icon')->nullable();
             $table->string('route')->unique();
+            $table->boolean('is_serialized')->default(1);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });

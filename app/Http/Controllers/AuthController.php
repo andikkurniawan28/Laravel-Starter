@@ -21,7 +21,7 @@ class AuthController extends Controller
         return view("auth.register", compact("global"));
     }
 
-    public function login_process(Request $request){
+    public function loginProcess(Request $request){
         $attempt = Auth::attempt([
             "username" => $request->username,
             "password" => $request->password,
@@ -36,7 +36,7 @@ class AuthController extends Controller
         }
     }
 
-    public function register_process(Request $request){
+    public function registerProcess(Request $request){
         $request->request->add([
             'password' => User::hashPassword($request),
         ]);

@@ -14,30 +14,29 @@ class DatabaseSeeder extends Seeder
 {
     public function run()
     {
-        $role = [
-            ['name' => ucfirst("admin")],
-            ['name' => ucfirst("user")],
-        ];
+        $menu = Menu::setSeeder();
 
         $setting = [
-            ['name' => "app_name", 'value' => "Laravel-Starter"],
-            ['name' => "app_color", 'value' => "primary"],
-            ['name' => "app_font_color", 'value' => "dark"],
+            ["name" => "app_name", "value" => "Laravel-Starter"],
+            ["name" => "app_color", "value" => "primary"],
+            ["name" => "app_font_color", "value" => "dark"],
         ];
 
-        $permission = [
-            ['role_id' => "1", "menu_id" => 1],
-            ['role_id' => "1", "menu_id" => 2],
-            ['role_id' => "1", "menu_id" => 3],
-            ['role_id' => "1", "menu_id" => 4],
-            ['role_id' => "1", "menu_id" => 5],
+        $role = [
+            ["name" => ucfirst("admin")],
+            ["name" => ucfirst("user")],
         ];
+
+        $permission = [];
+        for($i = 1; $i <= count($menu); $i++){
+            $permission[$i]["role_id"] = 1;
+            $permission[$i]["menu_id"] = $i;
+        }
 
         $user = [
-            ['name' => ucfirst("admin"), "username" => "admin", "password" => bcrypt("admin"), "role_id" => 1, "is_activated" => 1],
+            ["name" => ucfirst("admin"), "username" => "admin", "password" => bcrypt("admin"), "role_id" => 1, "is_activated" => 1],
         ];
 
-        $menu = Menu::setSeeder();
 
         Role::insert($role);
         Setting::insert($setting);

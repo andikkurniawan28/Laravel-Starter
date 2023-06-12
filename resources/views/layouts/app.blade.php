@@ -116,7 +116,7 @@
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
                                 @if($global["is_setting_allowed"] > 0)
-                                <a class="dropdown-item" href="{{ route("setting") }}">
+                                <a class="dropdown-item" href="{{ route("setting.index") }}">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Settings
                                 </a>

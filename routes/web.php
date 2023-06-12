@@ -16,14 +16,14 @@ Route::get("/", DashboardController::class)->name("dashboard")->middleware(["aut
 Route::get("login", [AuthController::class, "login"])->name("login");
 Route::get("logout", [AuthController::class, "logout"])->name("logout");
 Route::get("register", [AuthController::class, "register"])->name("register");
-Route::post("login", [AuthController::class, "login_process"])->name("login_process");
-Route::post("register", [AuthController::class, "register_process"])->name("register_process");
+Route::post("login", [AuthController::class, "loginProcess"])->name("login.process");
+Route::post("register", [AuthController::class, "registerProcess"])->name("register.process");
 
-Route::resource("user", UserController::class)->middleware(["auth"]);
-Route::resource("role", RoleController::class)->middleware(["auth"]);
-Route::resource("menu", MenuController::class)->middleware(["auth"]);
-Route::resource("permission", PermissionController::class)->middleware(["auth"]);
+Route::resource("menu", MenuController::class)->middleware(["auth", "ensure.permission"]);
+Route::resource("role", RoleController::class)->middleware(["auth", "ensure.permission"]);
+Route::resource("permission", PermissionController::class)->middleware(["auth", "ensure.permission"]);
+Route::resource("user", UserController::class)->middleware(["auth", "ensure.permission"]);
 
-Route::get("setting", [SettingController::class, "index"])->name("setting")->middleware(["auth"]);
-Route::post("setting", [SettingController::class, "process"])->name("setting_process")->middleware(["auth"]);
-Route::get("user_activation/{user_id}", UserActivationController::class)->name("user_activation")->middleware(["auth"]);
+Route::get("setting", [SettingController::class, "index"])->name("setting.index")->middleware(["auth", "ensure.permission"]);
+Route::post("setting", [SettingController::class, "process"])->name("setting.process")->middleware(["auth", "ensure.permission"]);
+Route::get("user/activation/{user_id}", UserActivationController::class)->name("user.activation")->middleware(["auth", "ensure.permission"]);

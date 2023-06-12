@@ -22,7 +22,7 @@
             </h6>
         </div>
         <div class="card-body">
-            <form action="{{ route("setting_process") }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route("setting.process") }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label for="app_name">{{ ucfirst('application name') }}</label>

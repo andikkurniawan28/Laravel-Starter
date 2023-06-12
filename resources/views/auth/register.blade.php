@@ -44,7 +44,7 @@
                                 'errors' => $errors,
                             ])
 
-                            <form class="user" method="POST" action="{{ route("register_process") }}">
+                            <form class="user" method="POST" action="{{ route("register.process") }}">
                                 @csrf @method("POST")
 
                                 <input type="hidden" class="form-control form-control-user" id="role_id"
