@@ -22,33 +22,14 @@ class AuthController extends Controller
     }
 
     public function loginProcess(Request $request){
-        $attempt = Auth::attempt([
-            "username" => $request->username,
-            "password" => $request->password,
-            "is_activated" => 1,
-        ]);
-        if($attempt){
-            $request->session()->regenerate();
-            return redirect()->intended();
-        }
-        else{
-            return redirect("login")->with("error", "Username / password wrong.");
-        }
+        return User::handleLogin($request);
     }
 
     public function registerProcess(Request $request){
-        $request->request->add([
-            'password' => User::hashPassword($request),
-        ]);
-        User::create($request->all());
-        return redirect()->route('login');
-
+        return User::handleRegister($request);
     }
 
     public function logout(Request $request){
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return redirect("login");
+        return User::handleLogout($request);
     }
 }

@@ -39,16 +39,17 @@
                             <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
                             <div class="col-lg-6">
 
-                                @include('components.alert', [
-                                    'message' => Session::get('error'),
-                                    'color' => 'danger',
-                                    'errors' => $errors,
-                                ])
-
                                 <div class="p-5">
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">{{ $global["app_name"] }} Login</h1>
                                     </div>
+
+                                    @include("components.alert", [
+                                        "message" => Session::get("success"),
+                                        "color" => "danger",
+                                        "errors" => $errors,
+                                    ])
+
                                     <form class="user" method="POST" action="{{ route("login.process") }}">
                                         @csrf @method("POST")
                                         <div class="form-group">
