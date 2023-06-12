@@ -121,6 +121,12 @@
                                     Settings
                                 </a>
                                 @endif
+                                @if($global["is_activity_log_allowed"] > 0)
+                                <a class="dropdown-item" href="{{ route("activity_log") }}">
+                                    <i class="fas fa-history fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Activity Log
+                                </a>
+                                @endif
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout

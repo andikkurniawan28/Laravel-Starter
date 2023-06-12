@@ -25,7 +25,9 @@ class Globalization extends Model
         if (Route::current()->getName() != "login" && Route::current()->getName() != "register") {
             $data["permission"] = Permission::where("role_id", Auth()->user()->role_id)->get();
             $data["is_setting_allowed"] = Permission::where("role_id", Auth()->user()->role_id)
-                ->where("menu_id", 2)->count();
+                ->where("menu_id", 1)->count();
+            $data["is_activity_log_allowed"] = Permission::where("role_id", Auth()->user()->role_id)
+                ->where("menu_id", 3)->count();
         }
 
         return $data;

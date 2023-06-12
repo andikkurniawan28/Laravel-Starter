@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\ActivityLog;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Notifications\Notifiable;
@@ -65,10 +66,10 @@ class User extends Authenticatable
 
     public static function handleRegister($request){
         $request->request->add([
-            'password' => User::hashPassword($request),
+            "password" => User::hashPassword($request),
         ]);
         User::create($request->all());
-        return redirect()->route('login');
+        return redirect()->route("login");
     }
 
     public static function handleLogout($request){
@@ -80,5 +81,13 @@ class User extends Authenticatable
 
     public function role(){
         return $this->belongsTo(Role::class);
+    }
+
+    protected static function booted(): void
+    {
+        parent::boot();
+        static::created(function (User $user) {
+            ActivityLog::create([ "description" => "Create user ".$user->name ]);
+        });
     }
 }

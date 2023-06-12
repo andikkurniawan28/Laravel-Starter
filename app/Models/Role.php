@@ -18,4 +18,12 @@ class Role extends Model
     public function permission(){
         return $this->hasMany(Permission::class);
     }
+
+    protected static function booted(): void
+    {
+        parent::boot();
+        static::created(function (Role $role) {
+            ActivityLog::create([ "description" => Auth()->user()->name." create role ".$role->name ]);
+        });
+    }
 }

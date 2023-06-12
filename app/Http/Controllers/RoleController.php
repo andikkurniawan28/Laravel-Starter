@@ -39,7 +39,7 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        Role::create($request->validated());
+        Role::create($request->all());
         return redirect()->route('role.index')->with('success', ucfirst('role has been stored.'));
     }
 

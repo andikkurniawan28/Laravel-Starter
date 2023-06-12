@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\UserActivationController;
 
 
@@ -27,3 +28,4 @@ Route::resource("user", UserController::class)->middleware(["auth", "ensure.perm
 Route::get("setting", [SettingController::class, "index"])->name("setting.index")->middleware(["auth", "ensure.permission"]);
 Route::post("setting", [SettingController::class, "process"])->name("setting.process")->middleware(["auth", "ensure.permission"]);
 Route::get("user/activation/{user_id}", UserActivationController::class)->name("user.activation")->middleware(["auth", "ensure.permission"]);
+Route::get("activity_log", [ActivityLogController::class, "index"])->name("activity_log")->middleware(["auth", "ensure.permission"]);

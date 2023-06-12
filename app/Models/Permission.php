@@ -18,4 +18,12 @@ class Permission extends Model
     public function menu(){
         return $this->belongsTo(Menu::class);
     }
+
+    protected static function booted(): void
+    {
+        parent::boot();
+        static::created(function (Permission $permission) {
+            ActivityLog::create([ "description" => Auth()->user()->name." create permission for ".$permission->role->name." to access ".$permission->menu->name ]);
+        });
+    }
 }
