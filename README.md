@@ -2,12 +2,13 @@
 
 ## About Laravel Starter
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. 
-
-Laravel Starter is an ideal starting point to start your administration application with built in feature such as :
-- Authentication
+Laravel Starter is an ideal starting point to start your admin apps with minimum effort, this starter kit include :
+- Authentication (Login, Register, Logout)
+- Middleware by Role Permission
+- Menu Management
 - Role Management
 - Permission Management
 - User Management
 - Front End Base Setting
 - Globalization
+- SB Admin 2 Template Integration
