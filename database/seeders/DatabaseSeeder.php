@@ -37,7 +37,6 @@ class DatabaseSeeder extends Seeder
             ["name" => ucfirst("admin"), "username" => "admin", "password" => bcrypt("admin"), "role_id" => 1, "is_activated" => 1],
         ];
 
-
         Role::insert($role);
         Setting::insert($setting);
         Menu::insert($menu);
