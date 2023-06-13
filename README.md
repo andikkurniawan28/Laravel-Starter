@@ -9,6 +9,7 @@ Laravel Starter is an ideal starting point to start your admin apps with minimum
 - Role Management
 - Permission Management
 - User Management
+- Activity Log Model Event
 - Front End Base Setting
 - Globalization
 - SB Admin 2 Template Integration
