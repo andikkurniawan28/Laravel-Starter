@@ -17,10 +17,10 @@ class DatabaseSeeder extends Seeder
         $menu = Menu::setSeeder();
 
         $setting = [
-            ["name" => "app_name", "value" => "Starter"],
+            ["name" => "app_name", "value" => "Laravel Starter"],
             ["name" => "app_logo", "value" => NULL],
             ["name" => "app_icon", "value" => NULL],
-            ["name" => "app_color", "value" => "primary"],
+            ["name" => "app_color", "value" => "danger"],
             ["name" => "app_font_color", "value" => "dark"],
         ];
 

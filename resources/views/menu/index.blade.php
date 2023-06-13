@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="alert alert-info alert-dismissible fade show" role="alert">
-        Please make sure your <strong>route</strong> is registered !
+        Please make sure your <strong>route</strong> is registered & accessible !
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

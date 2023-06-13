@@ -6,6 +6,8 @@
 
         @csrf @method("POST")
 
+        <input type="hidden" name="role_id" value="{{ $global["default_role_id"] }}">
+
         <div class="form-group">
             <input type="text" class="form-control form-control-user" id="name" aria-describedby="name"
                 placeholder="Enter name..." name="name" required autofocus>
@@ -21,13 +23,13 @@
         </div>
 
         <button type="submit" class="btn btn-primary btn-user btn-block">
-            Login
+            Register
         </button>
 
         <hr>
 
         <div class="text-center">
-            <a class="small" href="{{ route("register") }}">Register</a>
+            <a class="small" href="{{ route("login") }}">Login</a>
         </div>
 
     </form>
