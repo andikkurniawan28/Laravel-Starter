@@ -65,6 +65,10 @@ class User extends Authenticatable
     }
 
     public static function handleRegister($request){
+        $request->validate([
+            "name" => "required|unique:users",
+            "username" => "required|unique:users",
+        ]);
         $request->request->add([
             "password" => User::hashPassword($request),
         ]);
