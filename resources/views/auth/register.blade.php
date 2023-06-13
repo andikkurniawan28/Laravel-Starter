@@ -12,7 +12,7 @@
     <title>{{ $global["app_name"] }}</title>
 
     <!-- Custom fonts for this template-->
-    <link href="/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="/admin/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
@@ -26,63 +26,73 @@
 
     <div class="container">
 
-        <div class="card o-hidden border-0 shadow-lg my-5">
-            <div class="card-body p-0">
-                <!-- Nested Row within Card Body -->
-                <div class="row">
-                    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
-                    <div class="col-lg-7">
+        <!-- Outer Row -->
+        <div class="row justify-content-center">
+
+            <div class="col-xl-4 col-lg-4 col-md-12">
+
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
 
                         <div class="p-5">
+
                             <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">{{ $global["app_name"] }} Register</h1>
+                                <img src="{{ "/app_icon/".$global["app_icon"] }}" alt="app_icon" title="app_icon" width="150" height="150">
                             </div>
 
-                            @include('components.alert', [
-                                'message' => Session::get('error'),
-                                'color' => 'danger',
-                                'errors' => $errors,
+                            @include("components.alert", [
+                                "message" => Session::get("success"),
+                                "color" => "danger",
+                                "errors" => $errors,
                             ])
 
                             <form class="user" method="POST" action="{{ route("register.process") }}">
                                 @csrf @method("POST")
 
-                                <input type="hidden" class="form-control form-control-user" id="role_id"
-                                    name="role_id" value="{{ $global["default_role_id"] }}">
+                                <input type="hidden" name="role_id" value="{{ $global["default_role_id"] }}">
+
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" id="name"
-                                        name="name" placeholder="Enter name...">
+                                    <input type="text" class="form-control form-control-user"
+                                        id="name" aria-describedby="name"
+                                        placeholder="Enter name..." name="name" required autofocus>
                                 </div>
+
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" id="username"
-                                        name="username" placeholder="Enter username...">
+                                    <input type="text" class="form-control form-control-user"
+                                        id="username" aria-describedby="username"
+                                        placeholder="Enter username..." name="username" required>
                                 </div>
+
                                 <div class="form-group">
-                                    <input type="password" class="form-control form-control-user" id="password"
-                                        name="password" placeholder="Enter password...">
+                                    <input type="password" class="form-control form-control-user"
+                                        id="password" placeholder="Enter password..." name="password" required>
                                 </div>
+
                                 <button type="submit" class="btn btn-primary btn-user btn-block">
                                     Register
                                 </button>
+                                <hr>
+                                <div class="text-center">
+                                    <a class="small" href="{{ route("login") }}">Login</a>
+                                </div>
                             </form>
-                            <hr>
-                            <div class="text-center">
-                                <a class="small" href="{{ route("login") }}">Already have an account? Login!</a>
-                            </div>
+
                         </div>
                     </div>
                 </div>
+
             </div>
+
         </div>
 
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="/admin/vendor/jquery/jquery.min.js"></script>
-    <script src="/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/admin/jquery/jquery.min.js"></script>
+    <script src="/admin/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="/admin/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
     <script src="/admin/js/sb-admin-2.min.js"></script>

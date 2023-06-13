@@ -13,13 +13,27 @@ class Setting extends Model
         Setting::where("name", "app_name")->update(["value" => $request->app_name]);
         Setting::where("name", "app_color")->update(["value" => $request->app_color]);
         Setting::where("name", "app_font_color")->update(["value" => $request->app_font_color]);
-        if($request->has("app_icon")){
-            self::uploadImage($request);
+
+        if($request->has("app_logo")){
+            self::uploadLogo($request);
         }
+        if($request->has("app_icon")){
+            self::uploadIcon($request);
+        }
+
         return redirect()->back()->with("success", "Setting has been updated.");
     }
 
-    public static function uploadImage($request){
+    public static function uploadLogo($request){
+        $request->validate([
+            "app_logo" => "required|image|mimes:jpeg,png,jpg|max:2048",
+        ]);
+        $imageName = time().".".$request->app_logo->extension();
+        $request->app_logo->move(public_path("app_logo"), $imageName);
+        Setting::where("name", "app_logo")->update(["value" => $imageName]);
+    }
+
+    public static function uploadIcon($request){
         $request->validate([
             "app_icon" => "required|image|mimes:jpeg,png,jpg|max:2048",
         ]);

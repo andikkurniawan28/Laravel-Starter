@@ -69,7 +69,7 @@ class User extends Authenticatable
             "password" => User::hashPassword($request),
         ]);
         User::create($request->all());
-        return redirect()->route("login");
+        return redirect("login")->with("success", "User registered successfully !");
     }
 
     public static function handleLogout($request){

@@ -29,6 +29,10 @@
                     <input type="text" class="form-control" id="app_name" name="app_name" placeholder="Enter app_name..." value="{{ $global['app_name'] }}" required>
                 </div>
                 <div class="form-group">
+                    <label for="app_logo">{{ ucfirst('application logo') }}</label>
+                    <input type="file" class="form-control-file" id="app_logo" name="app_logo" accept=".jpg,.gif,.png">
+                </div>
+                <div class="form-group">
                     <label for="app_icon">{{ ucfirst('application icon') }}</label>
                     <input type="file" class="form-control-file" id="app_icon" name="app_icon" accept=".jpg,.gif,.png">
                 </div>

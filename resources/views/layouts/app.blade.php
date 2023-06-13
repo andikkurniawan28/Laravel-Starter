@@ -37,7 +37,7 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route("dashboard") }}">
                 <div class="sidebar-brand-icon">
-                    <img src="{{ "/app_icon/".$global["app_icon"] }}" alt="app_icon" title="app_icon" width="80" height="80">
+                    <img src="{{ "/app_logo/".$global["app_logo"] }}" alt="app_logo" title="app_logo" width="80" height="80">
                 </div>
                 <div class="sidebar-brand-text mx-3">{{ $global["app_name"] }}</div>
             </a>
@@ -112,7 +112,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth()->user()->name }}</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth()->user()->name }} | {{ Auth()->user()->role->name }}</span>
                                 <img class="img-profile rounded-circle"
                                     src="/admin/img/undraw_profile.svg">
                             </a>
@@ -158,7 +158,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Laravel Starter<br>Developed by &copy; <a href="https://github.com/andikkurniawan28/Laravel-Starter">Andik Kurniawan</a></span>
+                        <span>Laravel Starter<br>&copy; <a href="https://github.com/andikkurniawan28/Laravel-Starter">Andik Kurniawan</a></span>
                     </div>
                 </div>
             </footer>
