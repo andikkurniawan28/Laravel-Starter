@@ -2,9 +2,9 @@
     <div class="alert alert-{{ $color }}" role="alert">
         {{ $message }}
     </div>
-    @endif
+@endif
 
-    @if ($errors->any())
+@if ($errors->any())
     <div class="alert alert-danger">
         <p>Error :</p>
             <ul>
