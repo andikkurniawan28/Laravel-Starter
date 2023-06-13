@@ -37,9 +37,9 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route("dashboard") }}">
                 <div class="sidebar-brand-icon">
-                    <img src="{{ "/app_icon/".$global["app_icon"] }}" alt="app_icon" title="app_icon" width="70" height="70">
+                    <img src="{{ "/app_icon/".$global["app_icon"] }}" alt="app_icon" title="app_icon" width="80" height="80">
                 </div>
-                {{-- <div class="sidebar-brand-text mx-3">{{ $global["app_name"] }}</div> --}}
+                <div class="sidebar-brand-text mx-3">{{ $global["app_name"] }}</div>
             </a>
 
             <!-- Divider -->
