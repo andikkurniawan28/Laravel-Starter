@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
 
         $setting = [
             ["name" => "app_name", "value" => "Starter"],
+            ["name" => "app_icon", "value" => NULL],
             ["name" => "app_color", "value" => "primary"],
             ["name" => "app_font_color", "value" => "dark"],
         ];

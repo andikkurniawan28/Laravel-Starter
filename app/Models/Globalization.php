@@ -17,9 +17,10 @@ class Globalization extends Model
     public static function index(){
         $data["role"] = Role::all();
         $data["menu"] = Menu::all();
-        $data["app_name"] = Setting::where("name", "=", "app_name")->get()->last()->value;
-        $data["app_color"] = Setting::where("name", "=", "app_color")->get()->last()->value;
-        $data["app_font_color"] = Setting::where("name", "=", "app_font_color")->get()->last()->value;
+        $data["app_name"] = Setting::where("name", "app_name")->get()->last()->value;
+        $data["app_icon"] = Setting::where("name", "app_icon")->get()->last()->value;
+        $data["app_color"] = Setting::where("name", "app_color")->get()->last()->value;
+        $data["app_font_color"] = Setting::where("name", "app_font_color")->get()->last()->value;
         $data["default_role_id"] = Role::max("id");
 
         if (Route::current()->getName() != "login" && Route::current()->getName() != "register") {

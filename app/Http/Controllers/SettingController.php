@@ -14,9 +14,6 @@ class SettingController extends Controller
     }
 
     public function process(Request $request){
-        Setting::where('name', 'app_name')->update(['value' => $request->app_name]);
-        Setting::where('name', 'app_color')->update(['value' => $request->app_color]);
-        Setting::where('name', 'app_font_color')->update(['value' => $request->app_font_color]);
-        return redirect()->back()->with('success', 'Setting has been updated.');
+        return Setting::updateSetting($request);
     }
 }

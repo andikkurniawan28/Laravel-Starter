@@ -12,6 +12,7 @@
     <title>{{ $global["app_name"] }}</title>
 
     <!-- Custom fonts for this template-->
+	<link rel="icon" type="image/png" href="{{ "/app_icon/".$global["app_icon"] }}"/>
     <link href="/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
@@ -35,10 +36,10 @@
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route("dashboard") }}">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laptop"></i>
+                <div class="sidebar-brand-icon">
+                    <img src="{{ "/app_icon/".$global["app_icon"] }}" alt="app_icon" title="app_icon" width="70" height="70">
                 </div>
-                <div class="sidebar-brand-text mx-3">{{ $global["app_name"] }}</div>
+                {{-- <div class="sidebar-brand-text mx-3">{{ $global["app_name"] }}</div> --}}
             </a>
 
             <!-- Divider -->
@@ -157,7 +158,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Laravel Starter developed by &copy; <a href="https://github.com/andikkurniawan28/Laravel-Starter">Andik Kurniawan</a></span>
+                        <span>Laravel Starter<br>Developed by &copy; <a href="https://github.com/andikkurniawan28/Laravel-Starter">Andik Kurniawan</a></span>
                     </div>
                 </div>
             </footer>
