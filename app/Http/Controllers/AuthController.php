@@ -21,6 +21,11 @@ class AuthController extends Controller
         return view("auth.register", compact("global"));
     }
 
+    public function changePassword(){
+        $global = Globalization::index();
+        return view("auth.change_password", compact("global"));
+    }
+
     public function loginProcess(Request $request){
         return User::handleLogin($request);
     }
@@ -31,5 +36,9 @@ class AuthController extends Controller
 
     public function logout(Request $request){
         return User::handleLogout($request);
+    }
+
+    public function changePasswordProcess(Request $request){
+        return User::handleChangePassword($request);
     }
 }

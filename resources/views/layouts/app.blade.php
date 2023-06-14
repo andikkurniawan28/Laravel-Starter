@@ -134,6 +134,10 @@
                                     Activity Log
                                 </a>
                                 @endif
+                                <a class="dropdown-item" href="{{ route("change_password") }}">
+                                    <i class="fas fa-user-lock fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Change password
+                                </a>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout

@@ -72,7 +72,7 @@ class User extends Authenticatable
         $request->request->add([
             "password" => User::hashPassword($request),
         ]);
-        User::create($request->all());
+        self::create($request->all());
         return redirect("login")->with("success", "User registered successfully !");
     }
 
@@ -81,6 +81,13 @@ class User extends Authenticatable
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect("login");
+    }
+
+    public static function handleChangePassword($request){
+        self::whereId($request->user_id)->update([
+            "password" => bcrypt($request->password)
+        ]);
+        return redirect()->route("logout");
     }
 
     public function role(){

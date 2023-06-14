@@ -20,6 +20,9 @@ Route::get("register", [AuthController::class, "register"])->name("register");
 Route::post("login", [AuthController::class, "loginProcess"])->name("login.process");
 Route::post("register", [AuthController::class, "registerProcess"])->name("register.process");
 
+Route::get("change_password", [AuthController::class, "changePassword"])->name("change_password")->middleware(["auth"]);
+Route::post("change_password", [AuthController::class, "changePasswordProcess"])->name("change_password.process")->middleware(["auth"]);
+
 Route::resource("menu", MenuController::class)->middleware(["auth", "ensure.permission"]);
 Route::resource("role", RoleController::class)->middleware(["auth", "ensure.permission"]);
 Route::resource("permission", PermissionController::class)->middleware(["auth", "ensure.permission"]);
