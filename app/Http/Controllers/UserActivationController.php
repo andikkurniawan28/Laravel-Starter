@@ -8,10 +8,7 @@ use Illuminate\Http\Request;
 class UserActivationController extends Controller
 {
     /**
-     * Handle the incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * Function to update user.is_activated field on User model.
      */
     public function __invoke($user_id)
     {

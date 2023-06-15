@@ -9,5 +9,8 @@ class ActivityLog extends Model
 {
     use HasFactory;
 
+    /**
+     * All fields are accessible.
+     */
     protected $guarded = [];
 }

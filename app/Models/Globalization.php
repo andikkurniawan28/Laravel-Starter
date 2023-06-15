@@ -14,6 +14,9 @@ class Globalization extends Model
 {
     use HasFactory;
 
+    /**
+     * Function to globally present data without having to individually call each model in every controller.
+     */
     public static function index(){
         $data["role"] = Role::all();
         $data["menu"] = Menu::all();

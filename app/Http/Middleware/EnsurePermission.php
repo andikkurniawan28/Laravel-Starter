@@ -10,11 +10,9 @@ use Illuminate\Support\Facades\Route;
 class EnsurePermission
 {
     /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
-     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
+     * Function to perform permission checking based on the currently logged-in role.
+     * The function will select based on the permissions stored in the database.
+     * If the permission is not found, it will throw an alert stating that this route is inaccessible.
      */
     public function handle(Request $request, Closure $next)
     {

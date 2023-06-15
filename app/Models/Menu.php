@@ -10,8 +10,16 @@ class Menu extends Model
 {
     use HasFactory;
 
+    /**
+     * All fields are accessible.
+     */
     protected $guarded = [];
 
+    /**
+     * Function to perform seeder. Whenever registering a new route, it is recommended to add
+     * that route to the seeder so that when performing migration, your route will be included
+     * in the menu table and its access rights can be managed.
+     */
     public static function setSeeder(){
         $data = [
             ["method" => "GET", "name" => "Setting Index", "icon" => "fas fa-cogs", "route" => "setting.index", "is_serialized" => 0],
@@ -27,14 +35,23 @@ class Menu extends Model
         return $data;
     }
 
+    /**
+     * Declare relationship with Permission Model.
+     */
     public function permission(){
         return $this->hasMany(Permission::class);
     }
 
+    /**
+     * Declare relationship with Documentation Model.
+     */
     public function documentation(){
         return $this->hasMany(Documentation::class);
     }
 
+    /**
+     * Function to perform logging every time a new record is created.
+     */
     protected static function booted(): void
     {
         parent::boot();
@@ -43,12 +60,18 @@ class Menu extends Model
         });
     }
 
+    /**
+     * Function to perform logging every time a new record is updated.
+     */
     public static function updateLog($request){
         ActivityLog::create([
             "description" => Auth()->user()->name." update menu ".$request->name
         ]);
     }
 
+    /**
+     * Function to perform logging every time a new record is deleted.
+     */
     public static function deleteLog($request){
         ActivityLog::create([
             "description" => Auth()->user()->name." delete menu ".$request->name

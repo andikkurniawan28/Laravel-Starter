@@ -8,6 +8,9 @@ use App\Models\Globalization;
 
 class ActivityLogController extends Controller
 {
+    /**
+     * Display a listing of the activity log.
+     */
     public function index(){
         $global = Globalization::index();
         $activity_log = ActivityLog::latest()->paginate(1000);

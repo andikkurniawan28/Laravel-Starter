@@ -14,16 +14,28 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    /**
+     * All fields are accessible.
+     */
     protected $guarded = [];
 
+    /**
+     * Function to hash / encrypt password from user request.
+     */
     public static function hashPassword($request){
         return bcrypt($request->password);
     }
 
+    /**
+     * Function to count how many user with user request.
+     */
     public static function checkUserIsPresent($request){
         return self::where("username", $request->username)->count();
     }
 
+    /**
+     * Function to check if user request is activated or not.
+     */
     public static function checkUserIsActivated($request){
         $status = self::where("username", $request->username)->get()->last()->is_activated;
         if($status === 0){
@@ -33,6 +45,9 @@ class User extends Authenticatable
         }
     }
 
+    /**
+     * Function to handle login validation.
+     */
     public static function handleLogin($request){
         $user_is_present = self::checkUserIsPresent($request);
         if($user_is_present > 0){
@@ -49,6 +64,9 @@ class User extends Authenticatable
         }
     }
 
+    /**
+     * Function to handle login process.
+     */
     public static function processLogin($request){
         $attempt = Auth::attempt([
             "username" => $request->username,
@@ -64,6 +82,9 @@ class User extends Authenticatable
         }
     }
 
+    /**
+     * Function to handle register process.
+     */
     public static function handleRegister($request){
         $request->validate([
             "name" => "required|unique:users",
@@ -76,6 +97,9 @@ class User extends Authenticatable
         return redirect("login")->with("success", "User registered successfully !");
     }
 
+    /**
+     * Function to handle logout process.
+     */
     public static function handleLogout($request){
         Auth::logout();
         $request->session()->invalidate();
@@ -83,6 +107,9 @@ class User extends Authenticatable
         return redirect("login");
     }
 
+    /**
+     * Function to handle change password process.
+     */
     public static function handleChangePassword($request){
         self::whereId($request->user_id)->update([
             "password" => bcrypt($request->password)
@@ -90,10 +117,16 @@ class User extends Authenticatable
         return redirect()->route("logout");
     }
 
+    /**
+     * Declare relationship with Role Model.
+     */
     public function role(){
         return $this->belongsTo(Role::class);
     }
 
+    /**
+     * Function to perform logging every time a new record is created.
+     */
     protected static function booted(): void
     {
         parent::boot();
@@ -102,12 +135,18 @@ class User extends Authenticatable
         });
     }
 
+    /**
+     * Function to perform logging every time a new record is updated.
+     */
     public static function updateLog($request){
         ActivityLog::create([
             "description" => Auth()->user()->name." update user ".$request->name
         ]);
     }
 
+    /**
+     * Function to perform logging every time a new record is deleted.
+     */
     public static function deleteLog($request){
         ActivityLog::create([
             "description" => Auth()->user()->name." delete user ".$request->name

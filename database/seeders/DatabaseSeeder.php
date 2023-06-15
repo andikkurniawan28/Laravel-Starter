@@ -15,8 +15,14 @@ class DatabaseSeeder extends Seeder
 {
     public function run()
     {
+        /**
+         * Variable to be seeded on menus table
+         */
         $menu = Menu::setSeeder();
 
+        /**
+         * Variable to be seeded on settings table
+         */
         $setting = [
             ["name" => "app_name", "value" => "Laravel Starter"],
             ["name" => "app_logo", "value" => "1686639239.png"],
@@ -25,21 +31,35 @@ class DatabaseSeeder extends Seeder
             ["name" => "app_font_color", "value" => "dark"],
         ];
 
+        /**
+         * Variable to be seeded on roles table
+         */
         $role = [
             ["name" => ucfirst("admin")],
             ["name" => ucfirst("user")],
         ];
 
+        /**
+         * Variable to be seeded on permissions table.
+         * Every time a new menu is registered in the seeder,
+         * the admin role automatically gets its access rights.
+         */
         $permission = [];
         for($i = 1; $i <= count($menu); $i++){
             $permission[$i]["role_id"] = 1;
             $permission[$i]["menu_id"] = $i;
         }
 
+        /**
+         * Variable to be seeded on users table
+         */
         $user = [
             ["name" => ucfirst("admin"), "username" => "admin", "password" => bcrypt("admin"), "role_id" => 1, "is_activated" => 1],
         ];
 
+        /**
+         * Variable to be seeded on documentations table
+         */
         $documentation = [
             ["menu_id" => 4, "description" => "A menu is a feature used to organize the routes or menus that will be displayed and registered within an application. It depicts the routes of your application, and each route should ideally be included in the menu table so that its permissions can be controlled."],
             ["menu_id" => 5, "description" => "Role are a feature used to define and manage access rights within an application. Generally, an application introduces the concept of admin and user access rights. However, you can develop these access rights according to the needs of your application."],
@@ -47,6 +67,9 @@ class DatabaseSeeder extends Seeder
             ["menu_id" => 7, "description" => "User is a feature for managing users, including user addition, modification, and deletion. You can also activate users through this feature. Inactive users are not able to log in."],
         ];
 
+        /**
+         * Seeding process
+         */
         Role::insert($role);
         Setting::insert($setting);
         Menu::insert($menu);
