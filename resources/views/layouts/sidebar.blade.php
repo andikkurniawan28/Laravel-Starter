@@ -17,8 +17,7 @@
     @else {{ "nav-item" }}
     @endif
 ">
-    <a class="nav-link" href="{{ route($permission->menu->route.".index")}}"
-        data-toggle="tooltip" data-placement="right" title="@foreach($permission->menu->documentation as $documentation) {{ $documentation->description }} @endforeach">
+    <a class="nav-link" href="{{ route($permission->menu->route.".index")}}">
         <i class="{{ $permission->menu->icon }}"></i>
         <span>{{ $permission->menu->name }}</span></a>
 </li>
