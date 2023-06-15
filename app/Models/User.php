@@ -101,4 +101,16 @@ class User extends Authenticatable
             ActivityLog::create([ "description" => "Create user ".$user->name ]);
         });
     }
+
+    public static function updateLog($request){
+        ActivityLog::create([
+            "description" => Auth()->user()->name." update user ".$request->name
+        ]);
+    }
+
+    public static function deleteLog($request){
+        ActivityLog::create([
+            "description" => Auth()->user()->name." delete user ".$request->name
+        ]);
+    }
 }

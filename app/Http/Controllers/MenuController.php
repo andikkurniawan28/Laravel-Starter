@@ -83,6 +83,7 @@ class MenuController extends Controller
             'icon' => $request->icon,
             'route' => $request->route,
         ]);
+        Menu::updateLog($request);
         return redirect()->route('menu.index')->with('success', ucfirst('menu has been updated.'));
     }
 
@@ -94,7 +95,9 @@ class MenuController extends Controller
      */
     public function destroy($id)
     {
+        $request = Menu::whereId($id)->get()->last();
         Menu::whereId($id)->delete();
+        Menu::deleteLog($request);
         return redirect()->route('menu.index')->with('success', ucfirst('menu has been deleted.'));
     }
 }

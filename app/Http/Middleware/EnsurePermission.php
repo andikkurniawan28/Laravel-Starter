@@ -20,7 +20,6 @@ class EnsurePermission
     {
         $global = Globalization::index();
         foreach($global["permission"] as $permission){
-
             if(Route::currentRouteName() == $permission->menu->route){
                 return $next($request);
             }
@@ -45,9 +44,7 @@ class EnsurePermission
             elseif(Route::currentRouteName() == $permission->menu->route.".destroy"){
                 return $next($request);
             }
-
         }
-
-        return redirect()->back()->with("success", "You are not permitted to access those page!");
+        return redirect()->back()->with("success", "You are not permitted to access ".Route::currentRouteName());
     }
 }

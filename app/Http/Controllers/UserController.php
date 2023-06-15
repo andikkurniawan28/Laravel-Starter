@@ -85,6 +85,7 @@ class UserController extends Controller
             'name' => $request->name,
             'username' => $request->username,
         ]);
+        User::updateLog($request);
         return redirect()->route('user.index')->with('success', ucfirst('user has been updated.'));
     }
 
@@ -96,7 +97,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        $request = User::whereId($id)->get()->last();
         User::whereId($id)->delete();
+        User::deleteLog($request);
         return redirect()->route('user.index')->with('success', ucfirst('user has been deleted.'));
     }
 }

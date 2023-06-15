@@ -165,7 +165,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Laravel Starter<br>&copy; <a href="https://github.com/andikkurniawan28/Laravel-Starter">Andik Kurniawan</a></span>
+                        <span>{{ $global["app_name"] }}<br>&copy; <a href="https://github.com/andikkurniawan28/Laravel-Starter">Andik Kurniawan</a></span>
                     </div>
                 </div>
             </footer>

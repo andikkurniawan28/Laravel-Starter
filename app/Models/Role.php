@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\ActivityLog;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Role extends Model
 {
@@ -25,5 +26,17 @@ class Role extends Model
         static::created(function (Role $role) {
             ActivityLog::create([ "description" => Auth()->user()->name." create role ".$role->name ]);
         });
+    }
+
+    public static function updateLog($request){
+        ActivityLog::create([
+            "description" => Auth()->user()->name." update role ".$request->name
+        ]);
+    }
+
+    public static function deleteLog($request){
+        ActivityLog::create([
+            "description" => Auth()->user()->name." delete role ".$request->name
+        ]);
     }
 }

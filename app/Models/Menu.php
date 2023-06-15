@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\ActivityLog;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Menu extends Model
 {
@@ -35,5 +36,17 @@ class Menu extends Model
         static::created(function (Menu $menu) {
             ActivityLog::create([ "description" => Auth()->user()->name." create menu ".$menu->name ]);
         });
+    }
+
+    public static function updateLog($request){
+        ActivityLog::create([
+            "description" => Auth()->user()->name." update menu ".$request->name
+        ]);
+    }
+
+    public static function deleteLog($request){
+        ActivityLog::create([
+            "description" => Auth()->user()->name." delete menu ".$request->name
+        ]);
     }
 }

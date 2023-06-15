@@ -81,6 +81,7 @@ class RoleController extends Controller
         Role::whereId($id)->update([
             'name' => $request->name,
         ]);
+        Role::updateLog($request);
         return redirect()->route('role.index')->with('success', ucfirst('role has been updated.'));
     }
 
@@ -92,7 +93,9 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
+        $request = Role::whereId($id)->get()->last();
         Role::whereId($id)->delete();
+        Role::deleteLog($request);
         return redirect()->route('role.index')->with('success', ucfirst('role has been deleted.'));
     }
 }

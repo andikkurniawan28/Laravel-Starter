@@ -26,4 +26,16 @@ class Permission extends Model
             ActivityLog::create([ "description" => Auth()->user()->name." create permission for ".$permission->role->name." to access ".$permission->menu->name ]);
         });
     }
+
+    public static function updateLog(){
+        ActivityLog::create([
+            "description" => Auth()->user()->name." update permission"
+        ]);
+    }
+
+    public static function deleteLog(){
+        ActivityLog::create([
+            "description" => Auth()->user()->name." delete permission"
+        ]);
+    }
 }

@@ -82,6 +82,7 @@ class PermissionController extends Controller
             'role_id' => $request->role_id,
             'menu_id' => $request->menu_id,
         ]);
+        Permission::updateLog();
         return redirect()->route('permission.index')->with('success', ucfirst('permission has been updated.'));
     }
 
@@ -94,6 +95,7 @@ class PermissionController extends Controller
     public function destroy($id)
     {
         Permission::whereId($id)->delete();
+        Permission::deleteLog();
         return redirect()->route('permission.index')->with('success', ucfirst('permission has been deleted.'));
     }
 }
