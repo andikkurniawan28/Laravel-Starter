@@ -21,6 +21,7 @@ class Menu extends Model
             ["method" => "RESOURCE", "name" => ucfirst('role'), "icon" => "fas fa-key", "route" => "role", "is_serialized" => 1],
             ["method" => "RESOURCE", "name" => ucfirst('permission'), "icon" => "fas fa-door-open", "route" => "permission", "is_serialized" => 1],
             ["method" => "RESOURCE", "name" => ucfirst('user'), "icon" => "fas fa-users", "route" => "user", "is_serialized" => 1],
+            ["method" => "RESOURCE", "name" => ucfirst('documentation'), "icon" => "fas fa-book", "route" => "documentation", "is_serialized" => 1],
             ["method" => "GET", "name" => "User Activation", "icon" => NULL, "route" => "user.activation", "is_serialized" => 0],
         ];
         return $data;
@@ -28,6 +29,10 @@ class Menu extends Model
 
     public function permission(){
         return $this->hasMany(Permission::class);
+    }
+
+    public function documentation(){
+        return $this->hasMany(Documentation::class);
     }
 
     protected static function booted(): void
