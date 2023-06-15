@@ -18,8 +18,8 @@ class DatabaseSeeder extends Seeder
 
         $setting = [
             ["name" => "app_name", "value" => "Laravel Starter"],
-            ["name" => "app_logo", "value" => NULL],
-            ["name" => "app_icon", "value" => NULL],
+            ["name" => "app_logo", "value" => "1686639239.png"],
+            ["name" => "app_icon", "value" => "1686640675.png"],
             ["name" => "app_color", "value" => "danger"],
             ["name" => "app_font_color", "value" => "dark"],
         ];
