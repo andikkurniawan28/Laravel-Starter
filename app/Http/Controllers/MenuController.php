@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Menu;
-use App\Models\ActivityLog;
 use Illuminate\Http\Request;
-use App\Models\Globalization;
 
 class MenuController extends Controller
 {

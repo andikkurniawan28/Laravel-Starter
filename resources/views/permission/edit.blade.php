@@ -34,6 +34,7 @@
                             >{{ $role->name }}</option>
                         @endforeach
                     </select>
+                    <input type="hidden" name="old_role_id" value="{{ $permission->role_id }}">
                 </div>
                 <div class="form-group">
                     <label for="menu_id">{{ ucfirst('menu') }}</label>
@@ -44,6 +45,7 @@
                             >{{ $menu->name }}</option>
                         @endforeach
                     </select>
+                    <input type="hidden" name="old_menu_id" value="{{ $permission->menu_id }}">
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-secondary btn-sm"><i class="fas fa-save"></i> Update</button>

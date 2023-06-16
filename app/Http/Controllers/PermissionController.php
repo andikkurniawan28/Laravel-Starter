@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Permission;
 use Illuminate\Http\Request;
-use App\Models\Globalization;
 
 class PermissionController extends Controller
 {
@@ -15,9 +14,7 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        $global = Globalization::index();
-        $permission = Permission::all();
-        return view('permission.index', compact('global', 'permission'));
+        return Permission::serveRecord();
     }
 
     /**
@@ -27,8 +24,7 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        $global = Globalization::index();
-        return view('permission.create', compact('global'));
+        return Permission::showCreationForm();
     }
 
     /**
@@ -39,8 +35,7 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        Permission::create($request->all());
-        return redirect()->route('permission.index')->with('success', ucfirst('permission has been stored.'));
+        return Permission::handleStore($request);
     }
 
     /**
@@ -51,9 +46,7 @@ class PermissionController extends Controller
      */
     public function show($id)
     {
-        $global = Globalization::index();
-        $permission = Permission::whereId($id)->get()->last();
-        return view('permission.show', compact('global', 'permission'));
+        return Permission::showSpecificRecord($id);
     }
 
     /**
@@ -64,9 +57,7 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-        $global = Globalization::index();
-        $permission = Permission::whereId($id)->get()->last();
-        return view('permission.edit', compact('global', 'permission'));
+        return Permission::showEditingForm($id);
     }
 
     /**
@@ -78,12 +69,7 @@ class PermissionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Permission::whereId($id)->update([
-            'role_id' => $request->role_id,
-            'menu_id' => $request->menu_id,
-        ]);
-        Permission::updateLog();
-        return redirect()->route('permission.index')->with('success', ucfirst('permission has been updated.'));
+        return Permission::handleUpdate($request, $id);
     }
 
     /**
@@ -94,8 +80,6 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
-        Permission::whereId($id)->delete();
-        Permission::deleteLog();
-        return redirect()->route('permission.index')->with('success', ucfirst('permission has been deleted.'));
+        return Permission::handleDelete($id);
     }
 }
