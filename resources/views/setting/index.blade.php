@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends("layouts.app")
 
-@section('content')
+@section("content")
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -9,10 +9,10 @@
         </ol>
     </nav>
 
-    @include('components.alert', [
-        'message' => Session::get('success'),
-        'color' => 'success',
-        'errors' => $errors,
+    @include("components.alert", [
+        "message" => Session::get("success"),
+        "color" => "success",
+        "errors" => $errors,
     ])
 
     <div class="card shadow mb-4">
@@ -21,31 +21,28 @@
                 {{ ucfirst("setting") }}
             </h5>
             <br>
-            @foreach($global["menu"] as $menux)
-                @if($menux->name == ucfirst("Setting Index"))
-                    @foreach ($menux->documentation as $documentation)
-                        <p class="mb-4">{{ $documentation->description }}</p>
-                    @endforeach
-                @endif
-            @endforeach
+            @include("components.documentation", ["description" => $description])
         </div>
         <div class="card-body">
             <form action="{{ route("setting.process") }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
-                    <label for="app_name">{{ ucfirst('application name') }}</label>
-                    <input type="text" class="form-control" id="app_name" name="app_name" placeholder="Enter app_name..." value="{{ $global['app_name'] }}" required>
+                    <label for="app_name">{{ ucfirst("application name") }}</label>
+                    <input type="text" class="form-control" id="app_name" name="app_name" placeholder="Enter app_name..." value="{{ $global["app_name"] }}" required>
+                    <input type="hidden" name="old_app_name" value="{{ $global["app_name"] }}">
                 </div>
                 <div class="form-group">
-                    <label for="app_logo">{{ ucfirst('application logo') }}</label>
+                    <label for="app_logo">{{ ucfirst("application logo") }}</label>
                     <input type="file" class="form-control-file" id="app_logo" name="app_logo" accept=".jpg,.gif,.png">
+                    <input type="hidden" name="old_app_logo" value="{{ $global["app_logo"] }}">
                 </div>
                 <div class="form-group">
-                    <label for="app_icon">{{ ucfirst('application icon') }}</label>
+                    <label for="app_icon">{{ ucfirst("application icon") }}</label>
                     <input type="file" class="form-control-file" id="app_icon" name="app_icon" accept=".jpg,.gif,.png">
+                    <input type="hidden" name="old_app_icon" value="{{ $global["app_icon"] }}">
                 </div>
                 <div class="form-group">
-                    <label for="app_color">{{ ucfirst('application color') }}</label>
+                    <label for="app_color">{{ ucfirst("application color") }}</label>
                     <select name="app_color" class="form-control">
                         <option value="danger" @if($global["app_color"] == "danger") {{ "selected" }} @endif>Red</option>
                         <option value="primary" @if($global["app_color"] == "primary") {{ "selected" }} @endif>Blue</option>
@@ -55,13 +52,15 @@
                         <option value="dark" @if($global["app_color"] == "dark") {{ "selected" }} @endif>Dark</option>
                         <option value="light" @if($global["app_color"] == "light") {{ "selected" }} @endif>Light</option>
                     </select>
+                    <input type="hidden" name="old_app_color" value="{{ $global["app_color"] }}">
                 </div>
                 <div class="form-group">
-                    <label for="app_font_color">{{ ucfirst('application font color') }}</label>
+                    <label for="app_font_color">{{ ucfirst("application font color") }}</label>
                     <select name="app_font_color" class="form-control">
                         <option value="dark" @if($global["app_font_color"] == "dark") {{ "selected" }} @endif>Light</option>
                         <option value="light" @if($global["app_font_color"] == "light") {{ "selected" }} @endif>Dark</option>
                     </select>
+                    <input type="hidden" name="old_app_font_color" value="{{ $global["app_font_color"] }}">
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-secondary btn-sm"><i class="fas fa-save"></i> Update</button>

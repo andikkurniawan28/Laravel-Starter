@@ -28,7 +28,7 @@ class Menu extends Model
      */
     public static function setSeeder(){
         $data = [
-            ["method" => "GET", "name" => "Setting Index", "icon" => "fas fa-cogs", "route" => "setting.index", "is_serialized" => 0],
+            ["method" => "GET", "name" => "Setting", "icon" => "fas fa-cogs", "route" => "setting.index", "is_serialized" => 0],
             ["method" => "POST", "name" => "Setting Process", "icon" => NULL, "route" => "setting.process", "is_serialized" => 0],
             ["method" => "GET", "name" => "Activity Log", "icon" => "fas fa-history", "route" => "activity_log", "is_serialized" => 0],
             ["method" => "RESOURCE", "name" => ucfirst("menu"), "icon" => "fas fa-list", "route" => "menu", "is_serialized" => 1],

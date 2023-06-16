@@ -125,7 +125,7 @@
                                 @if($global["is_setting_allowed"] > 0)
                                 <a class="dropdown-item" href="{{ route("setting.index") }}">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
+                                    Setting
                                 </a>
                                 @endif
                                 @if($global["is_activity_log_allowed"] > 0)
