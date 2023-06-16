@@ -11,6 +11,11 @@ class Role extends Model
     use HasFactory;
 
     /**
+     * Model name.
+     */
+    protected const _model = "Role";
+
+    /**
      * All fields are accessible.
      */
     protected $guarded = [];
@@ -41,20 +46,67 @@ class Role extends Model
     }
 
     /**
-     * Function to perform logging every time a new record is updated.
+     * Function to handle serve record.
      */
-    public static function updateLog($request){
-        ActivityLog::create([
-            "description" => Auth()->user()->name." update role ".$request->name
-        ]);
+    public static function serveRecord(){
+        $global = Globalization::index();
+        $role = self::all();
+        return view("role.index", compact("global", "role"));
     }
 
     /**
-     * Function to perform logging every time a new record is deleted.
+     * Function to handle show creation form.
      */
-    public static function deleteLog($request){
-        ActivityLog::create([
-            "description" => Auth()->user()->name." delete role ".$request->name
+    public static function showCreationForm(){
+        $global = Globalization::index();
+        return view("role.create", compact("global"));
+    }
+
+    /**
+     * Function to handle record storing.
+     */
+    public static function handleStore($request){
+        self::create($request->all());
+        return redirect()->route("role.index")->with("success", ucfirst("role has been stored."));
+    }
+
+    /**
+     * Function to handle show specific record.
+     */
+    public static function showSpecificRecord($id){
+        $global = Globalization::index();
+        $role = self::whereId($id)->get()->last();
+        return view("role.show", compact("global", "role"));
+    }
+
+    /**
+     * Function to handle show editing form.
+     */
+    public static function showEditingForm($id){
+        $global = Globalization::index();
+        $role = self::whereId($id)->get()->last();
+        return view("role.edit", compact("global", "role"));
+    }
+
+    /**
+     * Function to handle record modification.
+     */
+    public static function handleUpdate($request, $id){
+        self::whereId($id)->update([
+            "name" => $request->name,
         ]);
+        $change = ActivityLog::checkModification(self::_model, $request, $id);
+        ActivityLog::writeLog(Auth()->user()->name." update role ".$request->old_name.$change.".");
+        return redirect()->route("role.index")->with("success", ucfirst("role has been updated."));
+    }
+
+    /**
+     * Function to handle record deletion.
+     */
+    public static function handleDelete($id){
+        $change = ActivityLog::checkDeletion(self::_model, $id);
+        ActivityLog::writeLog(Auth()->user()->name." delete role ".$change.".");
+        self::whereId($id)->delete();
+        return redirect()->route("role.index")->with("success", ucfirst("role has been deleted."));
     }
 }

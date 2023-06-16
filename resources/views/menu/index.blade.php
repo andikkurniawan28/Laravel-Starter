@@ -57,7 +57,6 @@
                                 <form action="{{ route('menu.destroy', $menu->id) }}" method="POST" onsubmit="if(!confirm('Data will deleted, are you sure?')){return false;}">
                                     @csrf @method("DELETE")
                                     <a href="{{ route("menu.edit", $menu->id) }}" class="btn btn-outline-secondary btn-sm"><i class="fas fa-edit"></i> {{ ucfirst("edit") }}</a>
-                                    {{-- <a href="{{ route("menu.show", $menu->id) }}" class="btn btn-outline-info btn-sm"><i class="fas fa-info"></i> {{ ucfirst("info") }}</a> --}}
                                     <button class="btn btn-outline-danger btn-sm" type="submit"><i class="fas fa-trash"></i> {{ ucfirst("delete") }}</button>
                                 </form>
                             </td>

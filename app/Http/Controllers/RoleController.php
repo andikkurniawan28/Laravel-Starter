@@ -15,9 +15,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $global = Globalization::index();
-        $role = Role::all();
-        return view('role.index', compact('global', 'role'));
+        return Role::serveRecord();
     }
 
     /**
@@ -27,8 +25,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        $global = Globalization::index();
-        return view('role.create', compact('global'));
+        return Role::showCreationForm();
     }
 
     /**
@@ -39,8 +36,7 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        Role::create($request->all());
-        return redirect()->route('role.index')->with('success', ucfirst('role has been stored.'));
+        return Role::handleStore($request);
     }
 
     /**
@@ -51,9 +47,7 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        $global = Globalization::index();
-        $role = Role::whereId($id)->get()->last();
-        return view('role.show', compact('global', 'role'));
+        return Role::showSpecificRecord($id);
     }
 
     /**
@@ -64,9 +58,7 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        $global = Globalization::index();
-        $role = Role::whereId($id)->get()->last();
-        return view('role.edit', compact('global', 'role'));
+        return Role::showEditingForm($id);
     }
 
     /**
@@ -78,11 +70,7 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Role::whereId($id)->update([
-            'name' => $request->name,
-        ]);
-        Role::updateLog($request);
-        return redirect()->route('role.index')->with('success', ucfirst('role has been updated.'));
+        return Role::handleUpdate($request, $id);
     }
 
     /**
@@ -93,9 +81,6 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        $request = Role::whereId($id)->get()->last();
-        Role::whereId($id)->delete();
-        Role::deleteLog($request);
-        return redirect()->route('role.index')->with('success', ucfirst('role has been deleted.'));
+        return Role::handleDelete($id);
     }
 }

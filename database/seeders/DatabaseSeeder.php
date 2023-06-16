@@ -61,10 +61,13 @@ class DatabaseSeeder extends Seeder
          * Variable to be seeded on documentations table
          */
         $documentation = [
-            ["menu_id" => 4, "description" => "A menu is a feature used to organize the routes or menus that will be displayed and registered within an application. It depicts the routes of your application, and each route should ideally be included in the menu table so that its permissions can be controlled."],
+            ["menu_id" => 1, "description" => "Setting is a feature that serves to configure general information related to an application, including the application name, application icon, application logo, background color, and text color. You can define other information in the settings of the model."],
+            ["menu_id" => 3, "description" => "Activity log is a feature designed to monitor the usage of an application. This feature keeps track of activities related to the application, including the addition, modification, and deletion of records."],
+            ["menu_id" => 4, "description" => "Menu is a feature used to organize the routes or menus that will be displayed and registered within an application. It depicts the routes of your application, and each route should ideally be included in the menu table so that its permissions can be controlled."],
             ["menu_id" => 5, "description" => "Role are a feature used to define and manage access rights within an application. Generally, an application introduces the concept of admin and user access rights. However, you can develop these access rights according to the needs of your application."],
-            ["menu_id" => 6, "description" => "Permissions are a feature used to configure how a role can access a menu or multiple menus. Generally, this application grants more permissions to admins compared to users, but you can customize this concept according to your preferences."],
+            ["menu_id" => 6, "description" => "Permission are a feature used to configure how a role can access a menu or multiple menus. Generally, this application grants more permissions to admins compared to users, but you can customize this concept according to your preferences."],
             ["menu_id" => 7, "description" => "User is a feature for managing users, including user addition, modification, and deletion. You can also activate users through this feature. Inactive users are not able to log in."],
+            ["menu_id" => 8, "description" => "Documentation is used to assist users in understanding the functions of each feature within the application. You can modify existing documentation or even create documentation for the menus you have created yourself."],
         ];
 
         /**

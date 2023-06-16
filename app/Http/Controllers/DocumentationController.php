@@ -29,7 +29,7 @@ class DocumentationController extends Controller
     public function create()
     {
         $global = Globalization::index();
-        $menu = Menu::where("method", "RESOURCE")->get();
+        $menu = Menu::all();
         return view('documentation.create', compact('global', "menu"));
     }
 
@@ -68,7 +68,7 @@ class DocumentationController extends Controller
     {
         $global = Globalization::index();
         $documentation = Documentation::whereId($id)->get()->last();
-        $menu = Menu::where("method", "RESOURCE")->get();
+        $menu = Menu::all();
         return view('documentation.edit', compact('global', 'documentation', "menu"));
     }
 

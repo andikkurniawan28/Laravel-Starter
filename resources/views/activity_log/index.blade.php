@@ -11,6 +11,14 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h5 class="m-0 font-weight-bold text-primary">{{ ucfirst("activity log") }}</h5>
+            <br>
+            @foreach($global["menu"] as $menux)
+                @if($menux->name == ucfirst("Activity Log"))
+                    @foreach ($menux->documentation as $documentation)
+                        <p class="mb-4">{{ $documentation->description }}</p>
+                    @endforeach
+                @endif
+            @endforeach
         </div>
         <div class="card-body">
             <div class="table-responsive">

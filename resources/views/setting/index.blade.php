@@ -5,7 +5,7 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route("dashboard") }}">{{ ucfirst("dashboard") }}</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Edit {{ ucfirst("setting") }}</li>
+            <li class="breadcrumb-item active" aria-current="page">{{ ucfirst("setting") }}</li>
         </ol>
     </nav>
 
@@ -17,9 +17,17 @@
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">
-                Edit {{ ucfirst("setting") }}
-            </h6>
+            <h5 class="m-0 font-weight-bold text-primary">
+                {{ ucfirst("setting") }}
+            </h5>
+            <br>
+            @foreach($global["menu"] as $menux)
+                @if($menux->name == ucfirst("Setting Index"))
+                    @foreach ($menux->documentation as $documentation)
+                        <p class="mb-4">{{ $documentation->description }}</p>
+                    @endforeach
+                @endif
+            @endforeach
         </div>
         <div class="card-body">
             <form action="{{ route("setting.process") }}" method="POST" enctype="multipart/form-data">

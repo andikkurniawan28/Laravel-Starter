@@ -28,6 +28,7 @@
                 <div class="form-group">
                     <label for="name">{{ ucfirst('name') }}</label>
                     <input type="text" class="form-control" id="name" name="name" placeholder="Enter name..." value="{{ $role->name }}" required>
+                    <input type="hidden" name="old_name" value="{{ $role->name }}">
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-secondary btn-sm"><i class="fas fa-save"></i> Update</button>

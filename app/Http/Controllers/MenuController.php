@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Menu;
+use App\Models\ActivityLog;
 use Illuminate\Http\Request;
 use App\Models\Globalization;
 
@@ -15,9 +16,7 @@ class MenuController extends Controller
      */
     public function index()
     {
-        $global = Globalization::index();
-        $menu = Menu::all();
-        return view('menu.index', compact('global', 'menu'));
+        return Menu::serveRecord();
     }
 
     /**
@@ -27,8 +26,7 @@ class MenuController extends Controller
      */
     public function create()
     {
-        $global = Globalization::index();
-        return view('menu.create', compact('global'));
+        return Menu::showCreationForm();
     }
 
     /**
@@ -39,8 +37,7 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-        Menu::create($request->all());
-        return redirect()->route('menu.index')->with('success', ucfirst('menu has been stored.'));
+        return Menu::handleStore($request);
     }
 
     /**
@@ -51,9 +48,7 @@ class MenuController extends Controller
      */
     public function show($id)
     {
-        $global = Globalization::index();
-        $menu = Menu::whereId($id)->get()->last();
-        return view('menu.show', compact('global', 'menu'));
+        return Menu::showSpecificRecord($id);
     }
 
     /**
@@ -64,9 +59,7 @@ class MenuController extends Controller
      */
     public function edit($id)
     {
-        $global = Globalization::index();
-        $menu = Menu::whereId($id)->get()->last();
-        return view('menu.edit', compact('global', 'menu'));
+        return Menu::showEditingForm($id);
     }
 
     /**
@@ -78,13 +71,7 @@ class MenuController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Menu::whereId($id)->update([
-            'name' => $request->name,
-            'icon' => $request->icon,
-            'route' => $request->route,
-        ]);
-        Menu::updateLog($request);
-        return redirect()->route('menu.index')->with('success', ucfirst('menu has been updated.'));
+        return Menu::handleUpdate($request, $id);
     }
 
     /**
@@ -95,9 +82,6 @@ class MenuController extends Controller
      */
     public function destroy($id)
     {
-        $request = Menu::whereId($id)->get()->last();
-        Menu::whereId($id)->delete();
-        Menu::deleteLog($request);
-        return redirect()->route('menu.index')->with('success', ucfirst('menu has been deleted.'));
+        return Menu::handleDelete($id);
     }
 }

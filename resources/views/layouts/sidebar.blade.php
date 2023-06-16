@@ -10,14 +10,18 @@
 </li>
 
 @foreach ($global["permission"] as $permission)
-@if($permission->menu->is_serialized == 1 && $permission->menu->method == "GET" || $permission->menu->method == "RESOURCE")
+@if($permission->menu->is_serialized == 1 && ($permission->menu->method == "GET" || $permission->menu->method == "RESOURCE"))
 <li class="
-    @if(Route::currentRouteName() === $permission->menu->route.".index" || Route::currentRouteName() === $permission->menu->route.".create" || Route::currentRouteName() === $permission->menu->route.".edit" || Route::currentRouteName() === $permission->menu->route.".show")
+    @if(Route::currentRouteName() === $permission->menu->route || Route::currentRouteName() === $permission->menu->route.".index" || Route::currentRouteName() === $permission->menu->route.".create" || Route::currentRouteName() === $permission->menu->route.".edit" || Route::currentRouteName() === $permission->menu->route.".show")
     {{ "nav-item active" }}
     @else {{ "nav-item" }}
     @endif
 ">
-    <a class="nav-link" href="{{ route($permission->menu->route.".index")}}">
+    @if($permission->menu->method == "RESOURCE")
+        <a class="nav-link" href="{{ route($permission->menu->route.".index")}}">
+    @elseif($permission->menu->method == "GET")
+        <a class="nav-link" href="{{ route($permission->menu->route)}}">
+    @endif
         <i class="{{ $permission->menu->icon }}"></i>
         <span>{{ $permission->menu->name }}</span></a>
 </li>

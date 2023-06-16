@@ -36,14 +36,17 @@
                 <div class="form-group">
                     <label for="name">{{ ucfirst('name') }}</label>
                     <input type="text" class="form-control" id="name" name="name" placeholder="Enter name..." value="{{ $menu->name }}" required>
+                    <input type="hidden" name="old_name" value="{{ $menu->name }}">
                 </div>
                 <div class="form-group">
                     <label for="icon">{{ ucfirst('icon') }}</label>
                     <input type="text" class="form-control" id="icon" name="icon" placeholder="Enter icon..." value="{{ $menu->icon }}">
+                    <input type="hidden" name="old_icon" value="{{ $menu->icon }}">
                 </div>
                 <div class="form-group">
                     <label for="route">{{ ucfirst('route') }}</label>
                     <input type="text" class="form-control" id="route" name="route" placeholder="Enter route..." value="{{ $menu->route }}" required>
+                    <input type="hidden" name="old_route" value="{{ $menu->route }}">
                 </div>
                 <div class="form-group">
                     <label for="is_serialized">{{ ucfirst('serialization') }}</label>
@@ -51,6 +54,7 @@
                         <option value="0" @if($menu->is_serialized == "0") {{ "selected" }} @endif>No</option>
                         <option value="1" @if($menu->is_serialized == "1") {{ "selected" }} @endif>Yes</option>
                     </select>
+                    <input type="hidden" name="old_is_serialized" value="{{ $menu->is_serialized }}">
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-secondary btn-sm"><i class="fas fa-save"></i> Update</button>

@@ -12,6 +12,13 @@
         <div class="card-header py-3">
             <h5 class="m-0 font-weight-bold text-primary">{{ ucfirst("documentation") }}</h5>
             <br>
+            @foreach($global["menu"] as $menux)
+                @if($menux->name == ucfirst("documentation"))
+                    @foreach ($menux->documentation as $documentationx)
+                        <p class="mb-4">{{ $documentationx->description }}</p>
+                    @endforeach
+                @endif
+            @endforeach
             <a href="{{ route("documentation.create") }}" class="btn btn-outline-primary btn-sm"><i class="fas fa-plus"></i>
                 {{ ucfirst("create") }}
             </a>
