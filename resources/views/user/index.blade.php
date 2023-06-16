@@ -1,24 +1,18 @@
-@extends('layouts.app')
+@extends("layouts.app")
 
-@section('content')
+@section("content")
 
-    @include('components.alert', [
-        'message' => Session::get('success'),
-        'color' => 'success',
-        'errors' => $errors,
+    @include("components.alert", [
+        "message" => Session::get("success"),
+        "color" => "success",
+        "errors" => $errors,
     ])
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h5 class="m-0 font-weight-bold text-primary">{{ ucfirst("user") }}</h5>
             <br>
-            @foreach($global["menu"] as $menux)
-                @if($menux->name == ucfirst("user"))
-                    @foreach ($menux->documentation as $documentation)
-                        <p class="mb-4">{{ $documentation->description }}</p>
-                    @endforeach
-                @endif
-            @endforeach
+            @include("components.documentation", ["description" => $description])
             <a href="{{ route("user.create") }}" class="btn btn-outline-primary btn-sm"><i class="fas fa-plus"></i>
                 {{ ucfirst("create") }}
             </a>
@@ -51,7 +45,7 @@
                             </td>
                             <td>{{ $user->created_at }}</td>
                             <td>
-                                <form action="{{ route('user.destroy', $user->id) }}" method="POST" onsubmit="if(!confirm('Data will deleted, are you sure?')){return false;}">
+                                <form action="{{ route("user.destroy", $user->id) }}" method="POST" onsubmit="if(!confirm('User {{ $user->name }} will deleted, are you sure?')){return false;}">
                                     @csrf @method("DELETE")
                                     <a href="{{ route("user.edit", $user->id) }}" class="btn btn-outline-secondary btn-sm"><i class="fas fa-edit"></i> {{ ucfirst("edit") }}</a>
                                     @if($user->is_activated === 0)

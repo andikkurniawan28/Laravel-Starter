@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Menu;
-use Illuminate\Http\Request;
 use App\Models\Documentation;
-use App\Models\Globalization;
+use Illuminate\Http\Request;
 
 class DocumentationController extends Controller
 {
@@ -16,9 +14,7 @@ class DocumentationController extends Controller
      */
     public function index()
     {
-        $global = Globalization::index();
-        $documentation = Documentation::all();
-        return view('documentation.index', compact('global', 'documentation'));
+        return Documentation::serveRecord();
     }
 
     /**
@@ -28,9 +24,7 @@ class DocumentationController extends Controller
      */
     public function create()
     {
-        $global = Globalization::index();
-        $menu = Menu::all();
-        return view('documentation.create', compact('global', "menu"));
+        return Documentation::showCreationForm();
     }
 
     /**
@@ -41,8 +35,7 @@ class DocumentationController extends Controller
      */
     public function store(Request $request)
     {
-        Documentation::create($request->all());
-        return redirect()->route('documentation.index')->with('success', ucfirst('documentation has been stored.'));
+        return Documentation::handleStore($request);
     }
 
     /**
@@ -53,9 +46,7 @@ class DocumentationController extends Controller
      */
     public function show($id)
     {
-        $global = Globalization::index();
-        $documentation = Documentation::whereId($id)->get()->last();
-        return view('documentation.show', compact('global', 'documentation'));
+        return Documentation::showSpecificRecord($id);
     }
 
     /**
@@ -66,10 +57,7 @@ class DocumentationController extends Controller
      */
     public function edit($id)
     {
-        $global = Globalization::index();
-        $documentation = Documentation::whereId($id)->get()->last();
-        $menu = Menu::all();
-        return view('documentation.edit', compact('global', 'documentation', "menu"));
+        return Documentation::showEditingForm($id);
     }
 
     /**
@@ -81,12 +69,7 @@ class DocumentationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Documentation::whereId($id)->update([
-            'menu_id' => $request->menu_id,
-            'description' => $request->description,
-        ]);
-        Documentation::updateLog();
-        return redirect()->route('documentation.index')->with('success', ucfirst('documentation has been updated.'));
+        return Documentation::handleUpdate($request, $id);
     }
 
     /**
@@ -97,8 +80,6 @@ class DocumentationController extends Controller
      */
     public function destroy($id)
     {
-        Documentation::whereId($id)->delete();
-        Documentation::deleteLog();
-        return redirect()->route('documentation.index')->with('success', ucfirst('documentation has been deleted.'));
+        return Documentation::handleDelete($id);
     }
 }

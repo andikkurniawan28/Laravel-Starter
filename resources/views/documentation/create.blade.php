@@ -28,7 +28,7 @@
                 <div class="form-group">
                     <label for="menu_id">{{ ucfirst('menu') }}</label>
                     <select class="form-control" name="menu_id">
-                        @foreach ($menu as $menu)
+                        @foreach ($global["menu"] as $menu)
                             <option value="{{ $menu->id }}">{{ $menu->name }}</option>
                         @endforeach
                     </select>

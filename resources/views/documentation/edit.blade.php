@@ -28,16 +28,18 @@
                 <div class="form-group">
                     <label for="menu_id">{{ ucfirst('menu') }}</label>
                     <select class="form-control" id="menu_id" name="menu_id">
-                        @foreach ($menu as $menu)
+                        @foreach ($global["menu"] as $menu)
                             <option value="{{ $menu->id }}"
                             @if($menu->id == $documentation->menu_id) {{ "selected" }} @endif
                             >{{ $menu->name }}</option>
                         @endforeach
                     </select>
+                    <input type="hidden" name="old_menu_id" value="{{ $documentation->menu_id }}">
                 </div>
                 <div class="form-group">
                     <label for="description">{{ ucfirst('description') }}</label>
                     <textarea class="form-control" id="description" name="description">{{ $documentation->description }}</textarea>
+                    <input type="hidden" name="old_description" value="{{ $documentation->description }}">
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-secondary btn-sm"><i class="fas fa-save"></i> Update</button>

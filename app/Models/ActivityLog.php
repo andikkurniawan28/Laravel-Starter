@@ -33,6 +33,7 @@ class ActivityLog extends Model
             case "Role" : $change = self::modificationRole($request, $id); break;
             case "Permission" : $change = self::modificationPermission($request, $id); break;
             case "User" : $change = self::modificationUser($request, $id); break;
+            case "Documentation" : $change = self::modificationDocumentation($request, $id); break;
         }
         return $change;
     }
@@ -46,6 +47,7 @@ class ActivityLog extends Model
             case "Role" : $change = Role::whereId($id)->get()->last()->name; break;
             case "Permission" : $change = self::deletionPermission($id); break;
             case "User" : $change = User::whereId($id)->get()->last()->name; break;
+            case "Documentation" : $change = self::deletionDocumentation($id); break;
         }
         return $change;
     }
@@ -107,7 +109,7 @@ class ActivityLog extends Model
     }
 
     /**
-     * Function to print change statement based on role model modification.
+     * Function to print change statement based on user model modification.
      */
     public static function modificationUser($request, $id){
         $change = "";
@@ -129,7 +131,25 @@ class ActivityLog extends Model
     }
 
     /**
-     * Function to print change statement based on menu model deletion.
+     * Function to print change statement based on documentation model modification.
+     */
+    public static function modificationDocumentation($request, $id){
+        $change = " with ID ".$id;
+        $new_menu_id = Documentation::whereId($id)->get()->last()->menu_id;
+        $new_menu = Menu::whereId($new_menu_id)->get()->last()->name;
+        $old_menu = Menu::whereId($request->old_menu_id)->get()->last()->name;
+        $new_description = Documentation::whereId($id)->get()->last()->description;
+        if($new_menu != $old_menu){
+            $change = $change.", menu from ".$old_menu." to ".$new_menu;
+        }
+        if($new_description != $request->old_description){
+            $change = $change.", description from ".$request->old_description." to ".$new_description;
+        }
+        return $change;
+    }
+
+    /**
+     * Function to print change statement based on permission model deletion.
      */
     public static function deletionPermission($id){
         $role_id = Permission::whereId($id)->get()->last()->role_id;
@@ -137,6 +157,16 @@ class ActivityLog extends Model
         $role = Role::whereId($role_id)->get()->last()->name;
         $menu = Menu::whereId($menu_id)->get()->last()->name;
         $change = "for ".$role." to access ".$menu.".";
+        return $change;
+    }
+
+    /**
+     * Function to print change statement based on documentation model deletion.
+     */
+    public static function deletionDocumentation($id){
+        $menu_id = Documentation::whereId($id)->get()->last()->menu_id;
+        $menu = Menu::whereId($menu_id)->get()->last()->name;
+        $change = "for menu ".$menu.".";
         return $change;
     }
 
