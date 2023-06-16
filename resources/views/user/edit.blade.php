@@ -34,14 +34,17 @@
                             >{{ $role->name }}</option>
                         @endforeach
                     </select>
+                    <input type="hidden" name="old_role_id" value="{{ $user->role_id }}">
                 </div>
                 <div class="form-group">
                     <label for="name">{{ ucfirst('name') }}</label>
                     <input type="text" class="form-control" id="name" name="name" placeholder="Enter name..." value="{{ $user->name }}" required>
+                    <input type="hidden" name="old_name" value="{{ $user->name }}">
                 </div>
                 <div class="form-group">
                     <label for="username">{{ ucfirst('username') }}</label>
                     <input type="text" class="form-control" id="username" name="username" placeholder="Enter username..." value="{{ $user->username }}" required>
+                    <input type="hidden" name="old_username" value="{{ $user->username }}">
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-secondary btn-sm"><i class="fas fa-save"></i> Update</button>

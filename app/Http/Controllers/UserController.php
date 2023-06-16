@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Models\Globalization;
-use App\Http\Requests\UserStoreRequest;
 
 class UserController extends Controller
 {
@@ -16,9 +14,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $global = Globalization::index();
-        $user = User::all();
-        return view('user.index', compact('global', 'user'));
+        return User::serveRecord();
     }
 
     /**
@@ -28,8 +24,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $global = Globalization::index();
-        return view('user.create', compact('global'));
+        return User::showCreationForm();
     }
 
     /**
@@ -40,9 +35,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->request->add(['password' => User::hashPassword($request)]);
-        User::create($request->all());
-        return redirect()->route('user.index')->with('success', ucfirst('user has been stored.'));
+        return User::handleStore($request);
     }
 
     /**
@@ -53,9 +46,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $global = Globalization::index();
-        $user = User::whereId($id)->get()->last();
-        return view('user.show', compact('global', 'user'));
+        return User::showSpecificRecord($id);
     }
 
     /**
@@ -66,9 +57,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $global = Globalization::index();
-        $user = User::whereId($id)->get()->last();
-        return view('user.edit', compact('global', 'user'));
+        return User::showEditingForm($id);
     }
 
     /**
@@ -80,13 +69,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        User::whereId($id)->update([
-            'role_id' => $request->role_id,
-            'name' => $request->name,
-            'username' => $request->username,
-        ]);
-        User::updateLog($request);
-        return redirect()->route('user.index')->with('success', ucfirst('user has been updated.'));
+        return User::handleUpdate($request, $id);
     }
 
     /**
@@ -97,9 +80,6 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $request = User::whereId($id)->get()->last();
-        User::whereId($id)->delete();
-        User::deleteLog($request);
-        return redirect()->route('user.index')->with('success', ucfirst('user has been deleted.'));
+        return User::handleDelete($id);
     }
 }

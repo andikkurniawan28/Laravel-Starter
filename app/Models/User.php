@@ -15,6 +15,11 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
+     * Model name.
+     */
+    protected const _model_name = "User";
+
+    /**
      * All fields are accessible.
      */
     protected $guarded = [];
@@ -131,25 +136,77 @@ class User extends Authenticatable
     {
         parent::boot();
         static::created(function (User $user) {
-            ActivityLog::create([ "description" => "Create user ".$user->name ]);
+            ActivityLog::create([ "description" => "Create user ".$user->name."." ]);
         });
     }
 
     /**
-     * Function to perform logging every time a new record is updated.
+     * Function to handle serve record.
      */
-    public static function updateLog($request){
-        ActivityLog::create([
-            "description" => Auth()->user()->name." update user ".$request->name
-        ]);
+    public static function serveRecord(){
+        $global = Globalization::index();
+        $menu_id = Menu::where("name", self::_model_name)->get()->last()->id ?? NULL;
+        $description = Documentation::where("menu_id", $menu_id)->get();
+        $user = self::all();
+        return view("user.index", compact("global", "description", "user"));
     }
 
     /**
-     * Function to perform logging every time a new record is deleted.
+     * Function to handle show creation form.
      */
-    public static function deleteLog($request){
-        ActivityLog::create([
-            "description" => Auth()->user()->name." delete user ".$request->name
+    public static function showCreationForm(){
+        $global = Globalization::index();
+        return view("user.create", compact("global"));
+    }
+
+    /**
+     * Function to handle record storing.
+     */
+    public static function handleStore($request){
+        $request->request->add(['password' => self::hashPassword($request)]);
+        self::create($request->all());
+        return redirect()->route("user.index")->with("success", ucfirst("user has been stored."));
+    }
+
+    /**
+     * Function to handle show specific record.
+     */
+    public static function showSpecificRecord($id){
+        $global = Globalization::index();
+        $user = self::whereId($id)->get()->last();
+        return view("user.show", compact("global", "user"));
+    }
+
+    /**
+     * Function to handle show editing form.
+     */
+    public static function showEditingForm($id){
+        $global = Globalization::index();
+        $user = self::whereId($id)->get()->last();
+        return view("user.edit", compact("global", "user"));
+    }
+
+    /**
+     * Function to handle record modification.
+     */
+    public static function handleUpdate($request, $id){
+        self::whereId($id)->update([
+            "role_id" => $request->role_id,
+            "name" => $request->name,
+            "username" => $request->username,
         ]);
+        $change = ActivityLog::checkModification(self::_model_name, $request, $id);
+        ActivityLog::writeLog(Auth()->user()->name." update user ".$request->old_name.$change.".");
+        return redirect()->route("user.index")->with("success", ucfirst("user has been updated."));
+    }
+
+    /**
+     * Function to handle record deletion.
+     */
+    public static function handleDelete($id){
+        $change = ActivityLog::checkDeletion(self::_model_name, $id);
+        ActivityLog::writeLog(Auth()->user()->name." delete user ".$change.".");
+        self::whereId($id)->delete();
+        return redirect()->route("user.index")->with("success", ucfirst("user has been deleted."));
     }
 }

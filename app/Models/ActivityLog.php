@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Menu;
 use App\Models\Role;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -31,6 +32,7 @@ class ActivityLog extends Model
             case "Menu" : $change = self::modificationMenu($request, $id); break;
             case "Role" : $change = self::modificationRole($request, $id); break;
             case "Permission" : $change = self::modificationPermission($request, $id); break;
+            case "User" : $change = self::modificationUser($request, $id); break;
         }
         return $change;
     }
@@ -43,10 +45,14 @@ class ActivityLog extends Model
             case "Menu" : $change = Menu::whereId($id)->get()->last()->name; break;
             case "Role" : $change = Role::whereId($id)->get()->last()->name; break;
             case "Permission" : $change = self::deletionPermission($id); break;
+            case "User" : $change = User::whereId($id)->get()->last()->name; break;
         }
         return $change;
     }
 
+    /**
+     * Function to print change statement based on menu model modification.
+     */
     public static function modificationMenu($request, $id){
         $change = "";
         $new_name = Menu::whereId($id)->get()->last()->name;
@@ -68,6 +74,9 @@ class ActivityLog extends Model
         return $change;
     }
 
+    /**
+     * Function to print change statement based on role model modification.
+     */
     public static function modificationRole($request, $id){
         $change = "";
         $new_name = Role::whereId($id)->get()->last()->name;
@@ -77,18 +86,17 @@ class ActivityLog extends Model
         return $change;
     }
 
+    /**
+     * Function to print change statement based on permission model modification.
+     */
     public static function modificationPermission($request, $id){
         $change = " with ID ".$id;
-
         $new_role_id = Permission::whereId($id)->get()->last()->role_id;
         $new_menu_id = Permission::whereId($id)->get()->last()->menu_id;
-
         $new_role = Role::whereId($new_role_id)->get()->last()->name;
         $new_menu = Menu::whereId($new_menu_id)->get()->last()->name;
-
         $old_role = Role::whereId($request->old_role_id)->get()->last()->name;
         $old_menu = Menu::whereId($request->old_menu_id)->get()->last()->name;
-
         if($old_role != $new_role){
             $change = ", role from ".$old_role." to ".$new_role;
         }
@@ -98,6 +106,31 @@ class ActivityLog extends Model
         return $change;
     }
 
+    /**
+     * Function to print change statement based on role model modification.
+     */
+    public static function modificationUser($request, $id){
+        $change = "";
+        $new_role_id = User::whereId($id)->get()->last()->role_id;
+        $new_role = Role::whereId($new_role_id)->get()->last()->name;
+        $old_role = Role::whereId($request->old_role_id)->get()->last()->name;
+        $new_name = User::whereId($id)->get()->last()->name;
+        $new_username = User::whereId($id)->get()->last()->username;
+        if($new_role_id != $request->old_role_id){
+            $change = ", role from ".$old_role." to ".$new_role;
+        }
+        if($new_name != $request->old_name){
+            $change = $change.", name from ".$request->old_name." to ".$new_name;
+        }
+        if($new_username != $request->old_username){
+            $change = $change.", username from ".$request->old_username." to ".$new_username;
+        }
+        return $change;
+    }
+
+    /**
+     * Function to print change statement based on menu model deletion.
+     */
     public static function deletionPermission($id){
         $role_id = Permission::whereId($id)->get()->last()->role_id;
         $menu_id = Permission::whereId($id)->get()->last()->menu_id;
