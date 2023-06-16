@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends("layouts.app")
 
-@section('content')
+@section("content")
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -10,10 +10,10 @@
         </ol>
     </nav>
 
-    @include('components.alert', [
-        'message' => Session::get('success'),
-        'color' => 'success',
-        'errors' => $errors,
+    @include("components.alert", [
+        "message" => Session::get("success"),
+        "color" => "success",
+        "errors" => $errors,
     ])
 
     <div class="card shadow mb-4">
@@ -26,7 +26,7 @@
             <form action="{{ route("menu.update", $menu->id) }}" method="POST">
                 @csrf @method("PUT")
                 <div class="form-group">
-                    <label for="method">{{ ucfirst('method') }}</label>
+                    <label for="method">{{ ucfirst("method") }}</label>
                     <select class="form-control" name="method">
                         <option value="GET" @if($menu->method == "GET") {{ "selected" }} @endif>GET</option>
                         <option value="POST" @if($menu->method == "POST") {{ "selected" }} @endif>POST</option>
@@ -34,22 +34,22 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="name">{{ ucfirst('name') }}</label>
+                    <label for="name">{{ ucfirst("name") }}</label>
                     <input type="text" class="form-control" id="name" name="name" placeholder="Enter name..." value="{{ $menu->name }}" required>
                     <input type="hidden" name="old_name" value="{{ $menu->name }}">
                 </div>
                 <div class="form-group">
-                    <label for="icon">{{ ucfirst('icon') }}</label>
+                    <label for="icon">{{ ucfirst("icon") }}</label>
                     <input type="text" class="form-control" id="icon" name="icon" placeholder="Enter icon..." value="{{ $menu->icon }}">
                     <input type="hidden" name="old_icon" value="{{ $menu->icon }}">
                 </div>
                 <div class="form-group">
-                    <label for="route">{{ ucfirst('route') }}</label>
+                    <label for="route">{{ ucfirst("route") }}</label>
                     <input type="text" class="form-control" id="route" name="route" placeholder="Enter route..." value="{{ $menu->route }}" required>
                     <input type="hidden" name="old_route" value="{{ $menu->route }}">
                 </div>
                 <div class="form-group">
-                    <label for="is_serialized">{{ ucfirst('serialization') }}</label>
+                    <label for="is_serialized">{{ ucfirst("serialization") }}</label>
                     <select class="form-control" name="is_serialized">
                         <option value="0" @if($menu->is_serialized == "0") {{ "selected" }} @endif>No</option>
                         <option value="1" @if($menu->is_serialized == "1") {{ "selected" }} @endif>Yes</option>

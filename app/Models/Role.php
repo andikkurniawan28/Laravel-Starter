@@ -13,7 +13,7 @@ class Role extends Model
     /**
      * Model name.
      */
-    protected const _model = "Role";
+    protected const _model_name = "Role";
 
     /**
      * All fields are accessible.
@@ -50,8 +50,10 @@ class Role extends Model
      */
     public static function serveRecord(){
         $global = Globalization::index();
+        $menu_id = Menu::where("name", self::_model_name)->get()->last()->id ?? NULL;
+        $description = Documentation::where("menu_id", $menu_id)->get();
         $role = self::all();
-        return view("role.index", compact("global", "role"));
+        return view("role.index", compact("global", "description", "role"));
     }
 
     /**
@@ -95,7 +97,7 @@ class Role extends Model
         self::whereId($id)->update([
             "name" => $request->name,
         ]);
-        $change = ActivityLog::checkModification(self::_model, $request, $id);
+        $change = ActivityLog::checkModification(self::_model_name, $request, $id);
         ActivityLog::writeLog(Auth()->user()->name." update role ".$request->old_name.$change.".");
         return redirect()->route("role.index")->with("success", ucfirst("role has been updated."));
     }
@@ -104,7 +106,7 @@ class Role extends Model
      * Function to handle record deletion.
      */
     public static function handleDelete($id){
-        $change = ActivityLog::checkDeletion(self::_model, $id);
+        $change = ActivityLog::checkDeletion(self::_model_name, $id);
         ActivityLog::writeLog(Auth()->user()->name." delete role ".$change.".");
         self::whereId($id)->delete();
         return redirect()->route("role.index")->with("success", ucfirst("role has been deleted."));

@@ -14,7 +14,7 @@ class Menu extends Model
     /**
      * Model name.
      */
-    protected const _model = "Menu";
+    protected const _model_name = "Menu";
 
     /**
      * All fields are accessible.
@@ -71,8 +71,10 @@ class Menu extends Model
      */
     public static function serveRecord(){
         $global = Globalization::index();
+        $menu_id = Menu::where("name", self::_model_name)->get()->last()->id ?? NULL;
+        $description = Documentation::where("menu_id", $menu_id)->get();
         $menu = self::all();
-        return view("menu.index", compact("global", "menu"));
+        return view("menu.index", compact("global", "description", "menu"));
     }
 
     /**
@@ -119,7 +121,7 @@ class Menu extends Model
             "route" => $request->route,
             "is_serialized" => $request->is_serialized,
         ]);
-        $change = ActivityLog::checkModification(self::_model, $request, $id);
+        $change = ActivityLog::checkModification(self::_model_name, $request, $id);
         ActivityLog::writeLog(Auth()->user()->name." update menu ".$request->old_name.$change.".");
         return redirect()->route("menu.index")->with("success", ucfirst("menu has been updated."));
     }
@@ -128,7 +130,7 @@ class Menu extends Model
      * Function to handle record deletion.
      */
     public static function handleDelete($id){
-        $change = ActivityLog::checkDeletion(self::_model, $id);
+        $change = ActivityLog::checkDeletion(self::_model_name, $id);
         ActivityLog::writeLog(Auth()->user()->name." delete menu ".$change.".");
         self::whereId($id)->delete();
         return redirect()->route("menu.index")->with("success", ucfirst("menu has been deleted."));

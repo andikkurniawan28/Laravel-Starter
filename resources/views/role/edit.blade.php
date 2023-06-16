@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends("layouts.app")
 
-@section('content')
+@section("content")
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -10,10 +10,10 @@
         </ol>
     </nav>
 
-    @include('components.alert', [
-        'message' => Session::get('success'),
-        'color' => 'success',
-        'errors' => $errors,
+    @include("components.alert", [
+        "message" => Session::get("success"),
+        "color" => "success",
+        "errors" => $errors,
     ])
 
     <div class="card shadow mb-4">
@@ -26,7 +26,7 @@
             <form action="{{ route("role.update", $role->id) }}" method="POST">
                 @csrf @method("PUT")
                 <div class="form-group">
-                    <label for="name">{{ ucfirst('name') }}</label>
+                    <label for="name">{{ ucfirst("name") }}</label>
                     <input type="text" class="form-control" id="name" name="name" placeholder="Enter name..." value="{{ $role->name }}" required>
                     <input type="hidden" name="old_name" value="{{ $role->name }}">
                 </div>
