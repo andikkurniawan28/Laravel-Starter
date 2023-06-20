@@ -20,6 +20,8 @@ class Globalization extends Model
     public static function index(){
         $data["role"] = Role::all();
         $data["menu"] = Menu::all();
+        $data["permission"] = Permission::all();
+        $data["user"] = User::count();
         $data["app_name"] = Setting::where("name", "app_name")->get()->last()->value;
         $data["app_logo"] = Setting::where("name", "app_logo")->get()->last()->value;
         $data["app_icon"] = Setting::where("name", "app_icon")->get()->last()->value;
